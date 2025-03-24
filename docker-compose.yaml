@@ -1,0 +1,13 @@
+services:
+
+  client:
+    image: faraway-demo/client
+    environment:
+      SERVER_ADDRESS: server:1337
+
+  server:
+    image: faraway-demo/server
+    environment:
+      LISTEN_ADDRESS: 0.0.0.0:1337
+      PROTECTION_DIFFICULTY: 24
+

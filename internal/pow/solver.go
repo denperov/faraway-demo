@@ -28,7 +28,7 @@ func (c *Solver) SolveChallenge(challenge Challenge) (Nonce, error) {
 	var buffer [32 + 4]byte
 	copy(buffer[:32], challenge.RandomData[:])
 
-	for nonce := Nonce(0); nonce < Nonce(^uint32(0)); nonce++ {
+	for nonce := MinNonce; nonce < MaxNonce; nonce++ {
 		binary.BigEndian.PutUint32(buffer[32:], uint32(nonce))
 
 		firstHash := sha256.Sum256(buffer[:])

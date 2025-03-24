@@ -3,11 +3,15 @@ package pow
 import (
 	"encoding"
 	"fmt"
+	"math"
 	"math/bits"
 	"strconv"
 )
 
 type Nonce uint32
+
+const MinNonce = Nonce(0)
+const MaxNonce = Nonce(math.MaxUint32)
 
 type Difficulty uint16
 

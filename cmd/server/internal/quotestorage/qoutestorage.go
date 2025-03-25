@@ -3,7 +3,7 @@ package quotestorage
 import (
 	"bufio"
 	"fmt"
-	"log"
+	"log/slog"
 	"math/rand"
 	"os"
 )
@@ -23,7 +23,7 @@ func (s *QuoteStorage) Load(filePath string) error {
 	}
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Printf("close file: %v", err)
+			slog.Error("close file", "error", err)
 		}
 	}()
 

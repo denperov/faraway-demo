@@ -3,12 +3,14 @@ services:
   client:
     image: faraway-demo/client
     environment:
+      LOG_LEVEL: DEBUG
       SERVER_ADDRESS: server:1337
       SOLVER_PARALLELISM: 16
 
   server:
     image: faraway-demo/server
     environment:
+      LOG_LEVEL: INFO
       LISTEN_ADDRESS: 0.0.0.0:1337
-      PROTECTION_DIFFICULTY: 24
+      PROTECTION_DIFFICULTY: 30
 

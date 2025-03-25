@@ -35,14 +35,14 @@ func run[T any](appMain func(ctx context.Context, cfg T) error) (exitCode ExitCo
 		}
 	}()
 
+	slog.SetLogLoggerLevel(getLogLeve())
+
 	var cfg T
 
 	if err := readConfigEnv(&cfg); err != nil {
 		slog.Error("read env failed", "error", err)
 		return ExitCodeError
 	}
-
-	slog.SetLogLoggerLevel(slog.LevelDebug)
 
 	if err := appMain(ctx, cfg); err != nil {
 		slog.Error("app failed", "error", err)
@@ -58,4 +58,19 @@ func readConfigEnv[T any](cfg *T) error {
 	}
 
 	return nil
+}
+
+func getLogLeve() slog.Level {
+	logLevel := os.Getenv("LOG_LEVEL")
+	if logLevel == "" {
+		return slog.LevelInfo
+	}
+
+	var level slog.Level
+	if err := level.UnmarshalText([]byte(logLevel)); err != nil {
+		slog.Error("parse log level failed", "error", err)
+		return slog.LevelInfo
+	}
+
+	return level
 }

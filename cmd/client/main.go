@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"time"
 
-	"faraway/cmd/client/quoteclient"
+	"faraway/cmd/client/internal/quoteclient"
 	"faraway/internal/app"
 	"faraway/internal/delay"
 	"faraway/internal/pow"

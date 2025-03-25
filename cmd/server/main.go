@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log/slog"
 
-	"faraway/cmd/server/ddosprotection"
-	"faraway/cmd/server/quotehandler"
-	"faraway/cmd/server/quotestorage"
-	"faraway/cmd/server/tcpserver"
+	"faraway/cmd/server/internal/ddosprotection"
+	"faraway/cmd/server/internal/quotehandler"
+	"faraway/cmd/server/internal/quotestorage"
+	"faraway/cmd/server/internal/tcpserver"
 	"faraway/internal/app"
 	"faraway/internal/pow"
 )

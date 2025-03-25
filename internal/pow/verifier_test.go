@@ -24,7 +24,7 @@ func TestVerifier_VerifySolution(t *testing.T) {
 	verifier := pow.NewVerifier()
 
 	t.Run("valid solution", func(t *testing.T) {
-		nonce := pow.Nonce(3608)
+		nonce := pow.Nonce(2147946924)
 
 		result := verifier.VerifySolution(challenge, nonce)
 

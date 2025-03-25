@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"faraway/cmd/server/quotestorage"
+	"faraway/cmd/server/internal/quotestorage"
 )
 
 func TestQuoteStorage_GetQuote(t *testing.T) {

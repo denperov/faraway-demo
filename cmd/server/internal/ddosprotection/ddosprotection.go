@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"net"
 
-	"faraway/cmd/server/tcpserver"
+	"faraway/cmd/server/internal/tcpserver"
 	"faraway/internal/pow"
 )
 

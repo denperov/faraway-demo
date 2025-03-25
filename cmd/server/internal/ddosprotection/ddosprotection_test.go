@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"faraway/cmd/server/ddosprotection"
+	"faraway/cmd/server/internal/ddosprotection"
 	"faraway/internal/pow"
 )
 

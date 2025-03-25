@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"faraway/cmd/server/tcpserver"
+	"faraway/cmd/server/internal/tcpserver"
 )
 
 //go:generate go tool github.com/matryer/moq -pkg quotehandler_test -out mocks_test.go . Connection QuoteStorage

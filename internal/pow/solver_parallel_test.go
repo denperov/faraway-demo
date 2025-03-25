@@ -10,6 +10,8 @@ import (
 )
 
 func TestSolverParallel_SolveChallenge(t *testing.T) {
+	ctx := t.Context()
+
 	verifier := pow.NewVerifier()
 	solver := pow.NewSolverParallel(16)
 
@@ -49,7 +51,7 @@ func TestSolverParallel_SolveChallenge(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			nonce, err := solver.SolveChallenge(tc.challenge)
+			nonce, err := solver.SolveChallenge(ctx, tc.challenge)
 			require.NoError(t, err)
 			assert.True(t, verifier.VerifySolution(tc.challenge, nonce))
 		})
@@ -57,6 +59,8 @@ func TestSolverParallel_SolveChallenge(t *testing.T) {
 }
 
 func BenchmarkSolverParallel_SolveChallenge(b *testing.B) {
+	ctx := b.Context()
+
 	solver := pow.NewSolverParallel(16)
 
 	challenge := pow.Challenge{
@@ -70,7 +74,7 @@ func BenchmarkSolverParallel_SolveChallenge(b *testing.B) {
 	}
 
 	for b.Loop() {
-		if _, err := solver.SolveChallenge(challenge); err != nil {
+		if _, err := solver.SolveChallenge(ctx, challenge); err != nil {
 			b.Fatal(err)
 		}
 	}

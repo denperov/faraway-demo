@@ -1,9 +1,12 @@
 package pow
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 type Solver interface {
-	SolveChallenge(challenge Challenge) (Nonce, error)
+	SolveChallenge(context.Context, Challenge) (Nonce, error)
 }
 
 // NewSolver is factory function for creating a new Solver.

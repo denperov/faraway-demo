@@ -34,12 +34,12 @@ func isResultFound(err error) (Nonce, bool) {
 	return 0, false
 }
 
-func (c *SolverParallel) SolveChallenge(challenge Challenge) (Nonce, error) {
+func (c *SolverParallel) SolveChallenge(ctx context.Context, challenge Challenge) (Nonce, error) {
 	defer duration.Log("solve challenge", "difficulty", challenge.Difficulty)()
 
 	portion := Nonce((int(NonceMax) + 1) / c.parallelism)
 
-	g, ctx := errgroup.WithContext(context.Background())
+	g, ctx := errgroup.WithContext(ctx)
 
 	for i, start := 0, NonceMin; i < c.parallelism; i, start = i+1, start+portion {
 		g.Go(func() error {

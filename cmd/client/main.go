@@ -28,7 +28,7 @@ func client(ctx context.Context, cfg Config) error {
 	)
 
 	for {
-		quote, err := quoteClient.GetQuote()
+		quote, err := quoteClient.GetQuote(ctx)
 		if err != nil {
 			slog.Error("get quote failed", "error", err)
 		}

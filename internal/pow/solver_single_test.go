@@ -10,6 +10,8 @@ import (
 )
 
 func TestSolverSingle_SolveChallenge(t *testing.T) {
+	ctx := t.Context()
+
 	verifier := pow.NewVerifier()
 	solver := pow.NewSolverSingle()
 
@@ -49,7 +51,7 @@ func TestSolverSingle_SolveChallenge(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			nonce, err := solver.SolveChallenge(tc.challenge)
+			nonce, err := solver.SolveChallenge(ctx, tc.challenge)
 			require.NoError(t, err)
 			assert.True(t, verifier.VerifySolution(tc.challenge, nonce))
 		})
@@ -70,7 +72,7 @@ func BenchmarkSolverSingle_SolveChallenge(b *testing.B) {
 	}
 
 	for b.Loop() {
-		if _, err := solver.SolveChallenge(challenge); err != nil {
+		if _, err := solver.SolveChallenge(nil, challenge); err != nil {
 			b.Fatal(err)
 		}
 	}

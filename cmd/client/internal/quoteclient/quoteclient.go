@@ -1,6 +1,7 @@
 package quoteclient
 
 import (
+	"context"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -11,7 +12,7 @@ import (
 )
 
 type POWSolver interface {
-	SolveChallenge(pow.Challenge) (pow.Nonce, error)
+	SolveChallenge(context.Context, pow.Challenge) (pow.Nonce, error)
 }
 
 type QuoteClient struct {
@@ -29,7 +30,7 @@ func New(
 	}
 }
 
-func (c *QuoteClient) GetQuote() (string, error) {
+func (c *QuoteClient) GetQuote(ctx context.Context) (string, error) {
 	slog.Debug("dial", "address", c.serverAddress)
 
 	conn, err := net.Dial("tcp", c.serverAddress)
@@ -50,7 +51,7 @@ func (c *QuoteClient) GetQuote() (string, error) {
 		return "", fmt.Errorf("read challenge: %w", err)
 	}
 
-	nonce, err := c.powSolver.SolveChallenge(challenge)
+	nonce, err := c.powSolver.SolveChallenge(ctx, challenge)
 	if err != nil {
 		return "", fmt.Errorf("solve challenge: %w", err)
 	}

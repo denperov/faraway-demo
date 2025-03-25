@@ -1,12 +1,24 @@
 package quotestorage
 
 import (
-	"bufio"
 	"fmt"
+	"io/ioutil"
 	"log/slog"
 	"math/rand"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
+
+// Quote represents a single quote entry in the YAML file.
+type Quote struct {
+	Text string `yaml:"text"`
+}
+
+// quotesFile represents the overall YAML structure.
+type quotesFile struct {
+	Quotes []Quote `yaml:"quotes"`
+}
 
 type QuoteStorage struct {
 	quotes []string
@@ -16,6 +28,7 @@ func New() *QuoteStorage {
 	return &QuoteStorage{}
 }
 
+// Load reads the YAML file, parses it, and stores the quotes.
 func (s *QuoteStorage) Load(filePath string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -27,15 +40,20 @@ func (s *QuoteStorage) Load(filePath string) error {
 		}
 	}()
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if line != "" {
-			s.quotes = append(s.quotes, line)
-		}
-	}
-	if err := scanner.Err(); err != nil {
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
 		return fmt.Errorf("read file: %w", err)
+	}
+
+	var qf quotesFile
+	if err := yaml.Unmarshal(data, &qf); err != nil {
+		return fmt.Errorf("unmarshal yaml: %w", err)
+	}
+
+	for _, q := range qf.Quotes {
+		if q.Text != "" {
+			s.quotes = append(s.quotes, q.Text)
+		}
 	}
 
 	return nil

@@ -17,7 +17,7 @@ func main() { app.Run(service) }
 
 type Config struct {
 	ListenAddress        string         `envconfig:"LISTEN_ADDRESS" default:"127.0.0.1:1337"`
-	QuotesFile           string         `envconfig:"QUOTES_FILE" default:"quotes.txt"`
+	QuotesFile           string         `envconfig:"QUOTES_FILE" default:"quotes.yaml"`
 	ProtectionDifficulty pow.Difficulty `envconfig:"PROTECTION_DIFFICULTY" default:"20"`
 }
 

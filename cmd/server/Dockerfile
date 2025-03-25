@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 go build -o server ./cmd/server
 
 FROM alpine:3.20 AS final
 WORKDIR /app
-COPY quotes.txt ./
+COPY quotes.yaml ./
 COPY --from=build /build/server ./
 ENTRYPOINT ["/app/server"]
 EXPOSE 1337/tcp

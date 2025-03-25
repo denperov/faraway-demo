@@ -31,9 +31,9 @@ func client(ctx context.Context, cfg Config) error {
 		quote, err := quoteClient.GetQuote(ctx)
 		if err != nil {
 			slog.Error("get quote failed", "error", err)
+		} else {
+			fmt.Println(quote)
 		}
-
-		fmt.Println(quote)
 
 		if err := delay.For(ctx, 1*time.Second); err != nil {
 			return nil // context finished, normal shutdown

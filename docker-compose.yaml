@@ -4,6 +4,7 @@ services:
     image: faraway-demo/client
     environment:
       SERVER_ADDRESS: server:1337
+      SOLVER_PARALLELISM: 16
 
   server:
     image: faraway-demo/server

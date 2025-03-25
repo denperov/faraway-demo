@@ -15,11 +15,12 @@ import (
 func main() { app.Run(client) }
 
 type Config struct {
-	ServerAddress string `envconfig:"SERVER_ADDRESS" default:"127.0.0.1:1337"`
+	ServerAddress     string `envconfig:"SERVER_ADDRESS" default:"127.0.0.1:1337"`
+	SolverParallelism int    `envconfig:"SOLVER_PARALLELISM" default:"1"`
 }
 
 func client(ctx context.Context, cfg Config) error {
-	powSolver := pow.NewSolver()
+	powSolver := pow.NewSolver(cfg.SolverParallelism)
 
 	quoteClient := quoteclient.New(
 		powSolver,

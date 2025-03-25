@@ -57,6 +57,12 @@ func (s *QuoteServer) Run(ctx context.Context) error {
 
 			g.Go(func() error {
 				defer func() {
+					if r := recover(); r != nil {
+						slog.Error("connection handler panic", "error", fmt.Errorf("%v", r))
+					}
+				}()
+
+				defer func() {
 					if err := conn.Close(); err != nil {
 						slog.Error("close connection", "error", err)
 					}
